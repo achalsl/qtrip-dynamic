@@ -19,6 +19,7 @@ async function fetchCities() {
       return null
     }
     let data = await res.json()
+    console.log(data)
     return data
   } catch (err) {
     return err
