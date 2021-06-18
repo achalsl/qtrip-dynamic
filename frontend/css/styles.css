@@ -134,7 +134,8 @@ footer {
 .activity-card {
   color: #000;
   position: relative;
-  height: 350px;
+  height: 300px;
+  box-sizing: border-box;
   /* width: calc(25% - 20px); */
   /* padding: 6px; */
   border: 1px solid #ddd;
@@ -145,19 +146,58 @@ footer {
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   align-items: center;
 }
 .activity-card img {
   width: 100%;
   height: 100%;
+  /* max-height: 200px; */
   /* border-radius: 8px; */
   -webkit-transition: 0.2s all;
   /* -webkit-filter: brightness(70%); */
+  object-fit: cover;
+  max-height: 230px;
 }
 .activity-card img:hover {
   -webkit-filter: brightness(50%);
   /* transform: scale(1.1); */
+}
+
+.activity-card a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.activity-card-body {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: stretch;
+  align-content: space-between;
+  width: 100%;
+  padding: 0.5rem;
+  flex-grow: 1;
+  /* max-height: 25%; */
+}
+.activity-card-text {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activity-card-text-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.activity-card-text-subtitle {
+  min-width: 40px;
+  font-size: 0.75rem;
+  margin: 0;
 }
 
 /* activity-detail page css */

@@ -55,8 +55,9 @@ function addCityToDOM(id, city, description, image) {
   tileImage.setAttribute('src', image)
 
   let tileLink = document.createElement('a')
-  tileLink.setAttribute('id', id)
-  tileLink.setAttribute('href', `pages/adventures/?city=${id}`)
+  setAttributes(tileLink, {id: id, href: `pages/adventures/?city=${id}`})
+  // tileLink.setAttribute('id', id)
+  // tileLink.setAttribute('href', `pages/adventures/?city=${id}`)
 
   tileImageDiv.append(tileImage)
   tile.append(tileText, tileImageDiv, tileLink)
@@ -66,4 +67,14 @@ function addCityToDOM(id, city, description, image) {
   cityLayoutRow.append(tileColumn)
 }
 
-export { init, fetchCities, addCityToDOM };
+function createElWithTextAndAttr (elementType, attributes, str='') {
+  let el = document.createElement(elementType)
+  el.innerHTML = str
+  setAttributes(el, attributes)
+  return el
+}
+function setAttributes(el, attributes) {
+  Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key,value))
+}
+
+export { init, fetchCities, addCityToDOM, setAttributes, createElWithTextAndAttr };

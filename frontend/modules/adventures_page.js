@@ -1,24 +1,76 @@
 
 import config from "../conf/index.js";
+import { setAttributes, createElWithTextAndAttr } from "./landing_page.js"
 
 //Implementation to extract city from query params
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
-
+  const queryParams = new URLSearchParams(search)
+  let city = queryParams.get('city')
+  return city
 }
 
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
-
+  try {
+    let res = await fetch(`${config.backendEndpoint}/adventures/?city=${city}`)
+    if(!res.ok) {
+      return null
+    }
+    let data = await res.json()
+    console.log(data)
+    return data
+  } catch (err) {
+    return err
+  }
 }
 
 //Implementation of DOM manipulation to add adventures for the given city from list of adventures
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  let adventureRow = document.getElementById('data')
+  Object.entries(adventures).forEach(([, adventure]) => {
+    let adventureCardCol = document.createElement('div')
+    setAttributes(adventureCardCol, {class: 'col-6 col-md-4 col-lg-3 mt-4'})
+
+    let adventureCard = document.createElement('div')
+    setAttributes(adventureCard, {class: 'activity-card'})
+
+    let adventureCardImgDiv = document.createElement('div')
+    setAttributes(adventureCardImgDiv, {class: 'h-100'})
+    let adventureCardImg = document.createElement('img')
+    setAttributes(adventureCardImg, {src: adventure.image})
+
+    let categoryBanner = createElWithTextAndAttr('div', {class: 'category-banner'}, `${adventure.category}`)
+
+    let adventureCardLink = document.createElement('a')
+    setAttributes(adventureCardLink, {id: adventure.id, href: `detail/?adventure=${adventure.id}`})
+
+    let adventureCardBody = createElWithTextAndAttr('div', {class: 'activity-card-body'})
+
+    let adventureCardText1 = createElWithTextAndAttr('div', {class: 'activity-card-text'})
+    let adventureName = createElWithTextAndAttr('h5', {class: 'activity-card-text-title'}, adventure.name)
+    let adventurePrice = createElWithTextAndAttr('h6', {class: 'activity-card-text-subtitle'}, `<span>&#8377 ${adventure.costPerHead}</span>`)
+    adventureCardText1.append(adventureName, adventurePrice)
+
+    let adventureCardText2 = createElWithTextAndAttr('div', {class: 'activity-card-text'})
+    let adventureDurationLabel = createElWithTextAndAttr('h5', {class: 'activity-card-text-title'}, 'Duration')
+    let adventureDurationValue = createElWithTextAndAttr('h6', {class: 'activity-card-text-subtitle'},`${adventure.duration} hours`)
+    
+    adventureCardText2.append(adventureDurationLabel, adventureDurationValue)
+    let horizontalSeparator = document.createElement('hr')
+    horizontalSeparator.style.marginTop = '5px'
+    horizontalSeparator.style.marginBottom = '5px'
+    adventureCardBody.append(adventureCardText1, horizontalSeparator, adventureCardText2)
+    adventureCardImgDiv.append(adventureCardImg)
+    adventureCard.append(adventureCardImgDiv,categoryBanner, adventureCardLink, adventureCardBody)
+    adventureCardCol.append(adventureCard)
+    adventureRow.append(adventureCardCol)
+  }) 
 
 }
 
