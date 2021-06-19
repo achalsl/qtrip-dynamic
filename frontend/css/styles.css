@@ -55,7 +55,7 @@ footer {
   /* padding: 6px; */
   border-radius: 8px;
   cursor: pointer;
-  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
   overflow: hidden;
 
   display: flex;
@@ -68,11 +68,11 @@ footer {
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  -webkit-transition: 0.2s all;
-  /* -webkit-filter: brightness(70%); */
+  transition: 0.2s all;
+  /* filter: brightness(70%); */
 }
 .tile img:hover {
-  -webkit-filter: brightness(50%);
+  filter: brightness(50%);
   transform: scale(1.1);
 }
 
@@ -139,10 +139,10 @@ footer {
   /* width: calc(25% - 20px); */
   /* padding: 6px; */
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  -webkit-transition: 0.2s all;
-  overflow: hidden;
+  transition: 0.2s all;
+  overflow: visible;
 
   display: flex;
   flex-direction: column;
@@ -153,16 +153,15 @@ footer {
 .activity-card img {
   width: 100%;
   height: 100%;
-  /* max-height: 200px; */
-  /* border-radius: 8px; */
-  -webkit-transition: 0.2s all;
-  /* -webkit-filter: brightness(70%); */
+  transition: 0.2s all;
+  /* filter: brightness(70%); */
   object-fit: cover;
-  max-height: 230px;
+  border-radius: 0.25rem 0.25rem 0 0;
+  max-height: 220px;
 }
-.activity-card img:hover {
-  -webkit-filter: brightness(50%);
-  /* transform: scale(1.1); */
+
+.activity-card:hover img {
+  filter: brightness(50%);
 }
 
 .activity-card a {
@@ -180,7 +179,8 @@ footer {
   width: 100%;
   padding: 0.5rem;
   flex-grow: 1;
-  /* max-height: 25%; */
+  flex-shrink: 0;
+  min-height: 20%;
 }
 .activity-card-text {
   display: flex;
@@ -213,11 +213,11 @@ footer {
   height: 500px;
   width: 100%;
   cursor: pointer;
-  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
   border-radius: 2px;
 }
 .activity-card-image:hover {
-  -webkit-filter: brightness(50%);
+  filter: brightness(50%);
 }
 .experience-content ul li {
   margin-left: 16px;
@@ -252,7 +252,7 @@ footer {
   color: #fff;
   background: rgb(255, 145, 0);
   top: 0;
-  right: 0;
+  right: -15px;
   z-index: 1;
   margin-top: 16px;
   margin-right: 8px;

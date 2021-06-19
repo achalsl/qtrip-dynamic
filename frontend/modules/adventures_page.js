@@ -35,7 +35,7 @@ function addAdventureToDOM(adventures) {
   let adventureRow = document.getElementById('data')
   Object.entries(adventures).forEach(([, adventure]) => {
     let adventureCardCol = document.createElement('div')
-    setAttributes(adventureCardCol, {class: 'col-6 col-md-4 col-lg-3 mt-4'})
+    setAttributes(adventureCardCol, {class: 'col-6 col-md-4 col-lg-3 mb-4'})
 
     let adventureCard = document.createElement('div')
     setAttributes(adventureCard, {class: 'activity-card'})
