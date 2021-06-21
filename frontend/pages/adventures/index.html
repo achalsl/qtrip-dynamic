@@ -139,7 +139,14 @@
             // TODO: MODULE_FILTERS
             // 1. Change the DOM to show the selected duration filter. Use the provided input event
             // 2. Invoke saveFiltersToLocalStorage here
-
+            document.getElementById("data").textContent = "";
+            filters = getFiltersFromLocalStorage()
+            let duration = event.target.value
+            document.getElementById("duration-select").selectedIndex = 0;
+            filters["duration"] = duration
+            saveFiltersToLocalStorage(filters)
+            let filteredAdventures = filterFunction(adventures, filters);
+            addAdventureToDOM(filteredAdventures);
         }
 
         //executed when clear button is clicked on duration filter dropdown
@@ -147,7 +154,10 @@
             // TODO: MODULE_FILTERS
             // 1. Change the DOM to clear the Duration filter. Refer clearCategory() below
             // 2. Invoke saveFiltersToLocalStorage here
-
+            document.getElementById("data").textContent = "";
+            filters["duration"] = "";
+            let filteredAdventures = filterFunction(adventures, filters);
+            addAdventureToDOM(filteredAdventures);
         }
 
 
@@ -156,14 +166,14 @@
         function selectCategory(event) {
             document.getElementById("data").textContent = "";
             document.getElementById("category-list").textContent = "";
-
+            filters = getFiltersFromLocalStorage()
             let category = event.target.value;
             document.getElementById("category-select").selectedIndex = 0;
 
             filters["category"].push(category);
             filters["category"] = filters["category"].filter(onlyUnique);
 
-
+            saveFiltersToLocalStorage(filters)
             generateFilterPillsAndUpdateDOM(filters);
             let filteredAdventures = filterFunction(adventures, filters);
             addAdventureToDOM(filteredAdventures);

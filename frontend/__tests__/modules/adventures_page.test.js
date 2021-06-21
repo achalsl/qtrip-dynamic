@@ -97,8 +97,6 @@ describe("Adventure Page Tests", function () {
     );
   });
 
-<<<<<<< HEAD
-=======
   it("Check if filter by duration is working", function () {
     const expected = [
       {
@@ -269,5 +267,4 @@ describe("Adventure Page Tests", function () {
     expect(window.localStorage.getItem).toHaveBeenCalledTimes(1);
     expect(window.localStorage.getItem).toHaveBeenCalledWith("filters");
   });
->>>>>>> 5f608bb3a955376f8b67f7d4353b13dfe4ab8d81
 });

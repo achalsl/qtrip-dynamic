@@ -33,7 +33,8 @@ function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
   let adventureRow = document.getElementById('data')
-  Object.entries(adventures).forEach(([, adventure]) => {
+  adventures.forEach(adventure => {
+    console.log(adventure)
     let adventureCardCol = document.createElement('div')
     setAttributes(adventureCardCol, {class: 'col-6 col-md-4 col-lg-3 mb-4'})
 
@@ -41,7 +42,7 @@ function addAdventureToDOM(adventures) {
     setAttributes(adventureCard, {class: 'activity-card'})
 
     let adventureCardImgDiv = document.createElement('div')
-    setAttributes(adventureCardImgDiv, {class: 'h-100'})
+    setAttributes(adventureCardImgDiv, {class: 'h-100 activity-card-image-div'})
     let adventureCardImg = document.createElement('img')
     setAttributes(adventureCardImg, {src: adventure.image})
 
@@ -78,14 +79,17 @@ function addAdventureToDOM(adventures) {
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
-
+  let filteredList = list.filter(item => item.duration > low && item.duration <= high)
+  return filteredList
 }
 
 //Implementation of filtering by category which takes in a list of adventures, list of categories to be filtered upon and returns a filtered list of adventures.
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
-
+  let filteredList = list.filter(item => categoryList.indexOf(item.category) > -1)
+  console.log(filteredList)
+  return filteredList
 }
 
 // filters object looks like this filters = { duration: "", category: [] };
@@ -99,17 +103,28 @@ function filterFunction(list, filters) {
   // TODO: MODULE_FILTERS
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
+  let filteredList = [...list]
+  if(filters.duration.length > 0) {
+    let duration = filters.duration
+    let low = duration.substring(0, duration.indexOf('-'))
+    let high = duration.substring(duration.indexOf('-')+1)
+    filteredList = filterByDuration(list, low, high)
+  }
+  if(filters.category.length > 0) {
+    filteredList = filterByCategory(filteredList, filters.category)
+  }
 
+  
 
   // Place holder for functionality to work in the Stubs
-  return list;
+  return filteredList;
 }
 
 //Implementation of localStorage API to save filters to local storage. This should get called everytime an onChange() happens in either of filter dropdowns
 function saveFiltersToLocalStorage(filters) {
   // TODO: MODULE_FILTERS
   // 1. Store the filters to localStorage using JSON.stringify()
-
+  window.localStorage.setItem('filters', JSON.stringify(filters))
   return true;
 }
 
@@ -117,7 +132,7 @@ function saveFiltersToLocalStorage(filters) {
 function getFiltersFromLocalStorage() {
   // TODO: MODULE_FILTERS
   // 1. Get the filters from localStorage and return in JSON format
-
+  let filters = JSON.parse(window.localStorage.getItem('filters'))
 
   // Place holder for functionality to work in the Stubs
   return null;
@@ -130,7 +145,13 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter and Generate Category Pills
-
+  let categoryList = document.getElementById('category-list')
+  filters.category.map(filterCategory => {
+    console.log(filterCategory)
+    let filterPill = createElWithTextAndAttr('div', {class: 'category-filter'}, filterCategory)
+    categoryList.appendChild(filterPill)
+  })
+  
 }
 export {
   getCityFromURL,
