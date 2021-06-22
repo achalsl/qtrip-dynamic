@@ -21,7 +21,7 @@ async function fetchAdventures(city) {
       return null
     }
     let data = await res.json()
-    console.log(data)
+    
     return data
   } catch (err) {
     return err
@@ -34,7 +34,7 @@ function addAdventureToDOM(adventures) {
   // 1. Populate the Adventure Cards and insert those details into the DOM
   let adventureRow = document.getElementById('data')
   adventures.forEach(adventure => {
-    console.log(adventure)
+    
     let adventureCardCol = document.createElement('div')
     setAttributes(adventureCardCol, {class: 'col-6 col-md-4 col-lg-3 mb-4'})
 
@@ -88,7 +88,7 @@ function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
   let filteredList = list.filter(item => categoryList.indexOf(item.category) > -1)
-  console.log(filteredList)
+  
   return filteredList
 }
 
@@ -104,7 +104,7 @@ function filterFunction(list, filters) {
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
   let filteredList = [...list]
-  if(filters.duration.length > 0) {
+  if(filters["duration"].length > 0) {
     let duration = filters.duration
     let low = duration.substring(0, duration.indexOf('-'))
     let high = duration.substring(duration.indexOf('-')+1)
@@ -113,8 +113,6 @@ function filterFunction(list, filters) {
   if(filters.category.length > 0) {
     filteredList = filterByCategory(filteredList, filters.category)
   }
-
-  
 
   // Place holder for functionality to work in the Stubs
   return filteredList;
@@ -133,9 +131,8 @@ function getFiltersFromLocalStorage() {
   // TODO: MODULE_FILTERS
   // 1. Get the filters from localStorage and return in JSON format
   let filters = JSON.parse(window.localStorage.getItem('filters'))
-
   // Place holder for functionality to work in the Stubs
-  return null;
+  return filters;
 }
 
 //Implementation of DOM manipulation to add the following filters to DOM :
@@ -145,13 +142,13 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter and Generate Category Pills
+  let durationSelect = document.getElementById('duration-select')
+  durationSelect.value = filters.duration.length > 0 ? filters.duration : "" 
   let categoryList = document.getElementById('category-list')
   filters.category.map(filterCategory => {
-    console.log(filterCategory)
     let filterPill = createElWithTextAndAttr('div', {class: 'category-filter'}, filterCategory)
     categoryList.appendChild(filterPill)
   })
-  
 }
 export {
   getCityFromURL,
