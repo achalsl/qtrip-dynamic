@@ -1,36 +1,116 @@
 import config from "../conf/index.js";
+import { setAttributes, createElWithTextAndAttr } from "./landing_page.js"
 
 //Implementation to extract adventure ID from query params
 function getAdventureIdFromURL(search) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Get the Adventure Id from the URL
-
-
+  let adventureId = new URLSearchParams(search).get('adventure')
+  console.log('getAdventureIdFromURL() adventureId ', adventureId)
   // Place holder for functionality to work in the Stubs
-  return null;
+  return adventureId;
 }
 //Implementation of fetch call with a paramterized input based on adventure ID
 async function fetchAdventureDetails(adventureId) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Fetch the details of the adventure by making an API call
-
-
-  // Place holder for functionality to work in the Stubs
-  return null;
+  try {
+    let res = await fetch(`${config.backendEndpoint}/adventures/detail?adventure=${adventureId}`)
+    if(!res.ok) {
+      return null
+    }
+    let adventure = await res.json()
+    console.log('fetchAdventureDetails(): adventure ', adventure)
+    return adventure
+  } catch (err) {
+    return err
+  }
 }
 
 //Implementation of DOM manipulation to add adventure details to DOM
 function addAdventureDetailsToDOM(adventure) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Add the details of the adventure to the HTML DOM
-
+  // add adventure name to div id = adventure-name
+  let adventureName = document.getElementById('adventure-name')
+  adventureName.innerHTML = adventure.name
+  // add adventure subtitle to div id = adventure-subtitle
+  let adventureSubtitle = document.getElementById('adventure-subtitle')
+  adventureSubtitle.innerHTML = adventure.subtitle
+  // loop through images array and add images to div id = photo-gallery
+  let adventurePhotoGallery = document.getElementById('photo-gallery')
+  adventure.images.map(image => {
+    let imageDiv = document.createElement('div')
+    let imageElement = createElWithTextAndAttr('img', {src: image, class: 'activity-card-image'})
+    imageDiv.appendChild(imageElement)
+    adventurePhotoGallery.appendChild(imageDiv)
+  })
+  // add content to div id = adventure-content
+  let adventureContent = document.getElementById('adventure-content')
+  adventureContent.innerHTML = adventure.content
 }
 
 //Implementation of bootstrap gallery component
 function addBootstrapPhotoGallery(images) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Add the bootstrap carousel to show the Adventure images
+  let adventurePhotoGallery = document.getElementById('photo-gallery')
+  adventurePhotoGallery.textContent = ""
+  let adventureCarousel = createElWithTextAndAttr('div', {id: 'adventure-image-carousel', class: 'carousel slide', 'data-bs-ride': 'carousel'})
+  let carouselInner = createElWithTextAndAttr('div', {class: 'carousel-inner'})
+  let carouselIndicators = createElWithTextAndAttr('div', {class: 'carousel-indicators'})
+  images.map((image, index) => {
+    let carouselItem
+    let carouselIndicatorBtn
+    if(index === 0) {
+      carouselItem = createElWithTextAndAttr('div', {class: 'carousel-item active'})
+      carouselIndicatorBtn = createElWithTextAndAttr('button', 
+      {
+        type: 'button', 
+        'data-bs-target': '#adventure-image-carousel', 
+        'data-bs-slide-to': index, 
+        class: 'active',
+        'aria-current': true,
+        'aria-label': 'Image 1'
+      })
+    } else {
+      carouselItem = createElWithTextAndAttr('div', {class: 'carousel-item'})
+      carouselIndicatorBtn = createElWithTextAndAttr('button', 
+      {
+        type: 'button', 
+        'data-bs-target': '#adventure-image-carousel', 
+        'data-bs-slide-to': index, 
+        'aria-label': 'Image 1'
+      })
+    }
 
+    let imageElement = createElWithTextAndAttr('img', {class: 'activity-card-image  d-block w-100', src: image})
+
+    carouselIndicators.appendChild(carouselIndicatorBtn)
+    carouselItem.appendChild(imageElement)
+    carouselInner.appendChild(carouselItem)
+
+    
+  })
+  
+
+  let carouselControlPrev = createElWithTextAndAttr('button', {class: 'carousel-control-prev', 'data-bs-target': '#adventure-image-carousel', type: 'button', 'data-bs-slide': 'prev'})
+  let prevIcon = createElWithTextAndAttr('span', {class: 'carousel-control-prev-icon', 'aria-hidden': 'true'})
+  let previous = createElWithTextAndAttr('span', {class: 'visually-hidden'}, 'Previous')
+  carouselControlPrev.appendChild(prevIcon, previous)
+
+  console.log(carouselControlPrev)
+  let carouselControlNext = createElWithTextAndAttr('button', {class: 'carousel-control-next', 'data-bs-target': '#adventure-image-carousel', type: 'button', 'data-bs-slide': 'next'})
+  let nextIcon = createElWithTextAndAttr('span', {class: 'carousel-control-next-icon', 'aria-hidden': 'true'})
+  let next = createElWithTextAndAttr('span', {class: 'visually-hidden'}, 'Next')
+  carouselControlNext.appendChild(nextIcon, next)
+
+  adventureCarousel.appendChild(carouselIndicators)
+  adventureCarousel.appendChild(carouselInner)
+  adventureCarousel.appendChild(carouselControlPrev)
+  adventureCarousel.appendChild(carouselControlNext)
+  
+  adventurePhotoGallery.appendChild(adventureCarousel)
 }
 
 //Implementation of conditional rendering of DOM based on availability
