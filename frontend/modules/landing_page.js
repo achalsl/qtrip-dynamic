@@ -67,10 +67,14 @@ function addCityToDOM(id, city, description, image) {
   cityLayoutRow.append(tileColumn)
 }
 
-function createElWithTextAndAttr (elementType, attributes, str='') {
+function createElWithTextAndAttr (elementType, attributes=null, str='') {
   let el = document.createElement(elementType)
   el.innerHTML = str
-  setAttributes(el, attributes)
+
+  if(attributes !== null) {
+    setAttributes(el, attributes)
+  }
+
   return el
 }
 function setAttributes(el, attributes) {

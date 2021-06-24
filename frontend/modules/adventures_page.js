@@ -21,7 +21,7 @@ async function fetchAdventures(city) {
       return null
     }
     let data = await res.json()
-    
+    console.log(data)
     return data
   } catch (err) {
     return err
