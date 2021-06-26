@@ -154,6 +154,7 @@ function captureFormSubmitUsingJQuery(adventure) {
         // window.location.reload()
       }
     })
+    return false
   })
 }
 
