@@ -151,7 +151,7 @@ function captureFormSubmitUsingJQuery(adventure) {
       },
       error: function() {
         alert('Failed!')
-        window.location.reload()
+        // window.location.reload()
       }
     })
   })
