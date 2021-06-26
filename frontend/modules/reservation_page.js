@@ -1,10 +1,14 @@
 import config from "../conf/index.js";
+<<<<<<< HEAD
 import { createElWithTextAndAttr } from "./landing_page.js";
+=======
+>>>>>>> c7507bb543823cb23ddd09fc1c4e95cb563ca393
 
 //Implementation of fetch call to fetch all reservations
 async function fetchReservations() {
   // TODO: MODULE_RESERVATIONS
   // 1. Fetch Reservations by invoking the REST API and return them
+<<<<<<< HEAD
   try {
     let res = await fetch(`${config.backendEndpoint}/reservations`)
     if(!res.ok) {
@@ -17,6 +21,12 @@ async function fetchReservations() {
     return err
   }
   
+=======
+
+
+  // Place holder for functionality to work in the Stubs
+  return null;
+>>>>>>> c7507bb543823cb23ddd09fc1c4e95cb563ca393
 }
 
 //Function to add reservations to the table. Also; in case of no reservations, display the no-reservation-banner, else hide it.
@@ -34,6 +44,7 @@ function addReservationToTable(reservations) {
     1. The date of adventure booking should appear in the format DD/MM/YYYY (en-IN format) Example:  4/11/2020 denotes 4th November, 2020
     2. The booking time should appear in a format like 4 November 2020, 9:32:31 pm
   */
+<<<<<<< HEAD
   if(reservations.length > 0) {
     document.getElementById('reservation-table-parent').style.display = 'block'
     document.getElementById('no-reservation-banner').style.display = 'none'
@@ -71,3 +82,9 @@ function addReservationToTable(reservations) {
 }
 
 export { fetchReservations, addReservationToTable};
+=======
+
+}
+
+export { fetchReservations, addReservationToTable };
+>>>>>>> c7507bb543823cb23ddd09fc1c4e95cb563ca393
