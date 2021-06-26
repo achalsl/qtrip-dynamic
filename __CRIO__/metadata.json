@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-    "module_id": "ME_QTRIPDYNAMIC_MODULE_RESERVATIONS",
-=======
     "module_id": "ME_QTRIPDYNAMIC_MODULE_DEPLOYMENT",
->>>>>>> c7507bb543823cb23ddd09fc1c4e95cb563ca393
   "me_id": "ME_QTRIPDYNAMIC"
 }
