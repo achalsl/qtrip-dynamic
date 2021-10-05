@@ -22,6 +22,8 @@ build/static/js/*.map
 
 build/*
 
+frontend/assets
+frontend/assets/
 frontend/__tests__/junit.xml
 frontend/__tests__/node_modules
 frontend/__tests__/node_modules/

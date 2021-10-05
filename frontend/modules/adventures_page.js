@@ -147,6 +147,8 @@ function generateFilterPillsAndUpdateDOM(filters) {
   let categoryList = document.getElementById('category-list')
   filters.category.map(filterCategory => {
     let filterPill = createElWithTextAndAttr('div', {class: 'category-filter'}, filterCategory)
+    let removeFilterCategory = createElWithTextAndAttr('button', {id: 'removeFilterCategory', type: 'button', onclick: `removeFilterCategory(${filterCategory})`})
+    filterPill.append(removeFilterCategory)
     categoryList.appendChild(filterPill)
   })
 }
